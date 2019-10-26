@@ -89,11 +89,19 @@ $ l -F
 # The absence of the suffix means normal file that isnt executable
 ```
 
+## find
+find base on file name
+```find
+find .DS_Store on current path
+$ find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+```
+
+## echo
+write any specified argument
+
 ## grep
 find text inside a file
 
-## find
-find base on file name
 
 ## alias
 show the custom alias  
@@ -147,7 +155,7 @@ $ sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -s
   tr
   fold
   head
-  echoerr
+  echoerr  
   finish
   read
   rsync  
