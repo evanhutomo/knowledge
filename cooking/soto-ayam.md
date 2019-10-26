@@ -2,15 +2,14 @@
 
 ### Resep
 Bahan yang dihaluskan
-    - 8 siung bawang merah
-    - 10 siung bawang putih
-    - 1 siung jahe secukupnya
-    - 3 lembar daun salam 
-    - 1 sdm ketumbar 
-    - 5 butir kemiri
-    - merica putih
-    - 1/2 sdm kunyit bubuk
-
+- 8 siung bawang merah
+- 10 siung bawang putih
+- 1 siung jahe secukupnya
+- 3 lembar daun salam 
+- 1 sdm ketumbar 
+- 5 butir kemiri
+- merica putih
+- 1/2 sdm kunyit bubuk
 - 750 ml air
 
 
