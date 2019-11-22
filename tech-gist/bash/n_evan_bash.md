@@ -1,11 +1,88 @@
-# BASH COMMAND - BUILT IN
+# [BASH COMMAND](http://man7.org/linux/man-pages/index.html) - BUILT IN
 ## References
 http://www.linuxintro.org/wiki/Shell_scripting_tutorial
+
+
+## printenv/env
+print all part of environment
+```printenv
+$ printenv
+$ env
+```
+
+## set
+set environment variable
+```set
+$ set $HOME=~/
+```
+
+## unset
+unset environment variable
+```unset
+$ unset $HOME
+
+# or set empty file to erase the value
+$ export $HOME=
+```
+
+## ufw
+program to managing netfilter firewall
+```ufw
+# show firewall is active or not
+$ sudo ufw status verbose
+```
+
+## cd
+builtin comand to enter the directory
+```cd
+$ cd directory-name/
+
+# to go back to previous location
+$ cd -
+```
+
+## break
+exit process loop shell command like for, while, until
+
+## continue
+continue process shell command like for, while, until
+
+## exec
+builtin command which allow us to execute command and replace the previous command
+
+# command
+To check program exist from bash script
+```command
+# exist command will be printed out
+$ command -v ls
+ls
+$ command -v git
+/usr/bin/git
+```
 
 ## Shebang
 absolute path to the bash interpreter
 ```shebang
 #!/bin/bash
+```
+
+## chsh
+Change your shell login
+```chsh
+# change shell to zsh
+$ chsh -s /bin/zsh
+```
+
+## lshw
+list hardware
+```lshw
+$ lshw -class memory
+```
+
+## dmidecode
+DMI table decoder
+```dmidecode
+$ sudo dmidecode --type memory
 ```
 
 ## file
@@ -37,7 +114,10 @@ $ ls -l tty*
 $ ls -l *tty*
 
 # list all filename ending with tty
-$ ls -l *tty*
+$ ls -l *tty
+
+# list file per line (1 column)
+$ ls -a | cat
 ```
 
 ## ifconfig
@@ -185,6 +265,15 @@ $ find /path/ -iname <file/foldername>
 
 # find based on extension
 $ find /path -type f -name "*.extension"
+
+# find on this current path, with included string kernel
+find . -type d | grep kernel
+
+# find current path with exclude using -prune flag, and search *.c file exclude on ./build path
+$ find . -path ./build -prune -o -name '*.c' -print
+
+# find all extension on current path(using pipe(|) to append output from the previous command and input it to the next command)
+$ find . -type f -name '*.*' | sed 's|.*\.||' | sort | uniq -c
 ```
 
 ## alias
@@ -214,6 +303,12 @@ Show the status kernel module
 $ lsmod
 ```
 
+## sort
+sort lines of text files
+
+## sed
+stream editor for filter/transforming text
+
 ## locate
 find files by name
 
@@ -237,6 +332,9 @@ openSSL command line tool
 
 ## cat
 Concatenate files and print output
+```cat
+$ cat ${USERNAME}
+```
 
 ## tr
 translate or delete characters
@@ -299,6 +397,14 @@ output the last part of files
 a programming language that design for processing text-based data, either in files or data streams or using a shell pipes
 
 # BASH COMMAND - NOT BUILT IN
+## repo
+tool for getting android source
+[repo installer](curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo)
+```repo
+# for tracing error log
+$ repo --trace sync -l
+```
+
 ## tree
 Recursive directory listing program in depth
 ```tree
@@ -360,7 +466,7 @@ git SVN command
 # to save later work/commit. Stash work as stack
   $ git stash
 
-# see status of git
+# see status of changes on repository
   $ git status
 
 # switch branch
@@ -378,6 +484,33 @@ git SVN command
 
 # create a local clone of git repository
   $ git clone
+
+# clone specific tag on a repo url, use -depth 1 to avoiding downloading any non-current commits
+  $ git clone --branch <tagname> <repourl> -depth 1
+
+# .gitignore
+# create .gitignore and fill with list of file that we want to be ignored(not to be pushed)
+
+# .gitconfig
+# create this config to set a configuration of your git
+$ git config <key>
+
+# fatal: remote origin already exists.
+# first check is there any remote origin connected
+$ git remote -v
+# remove the remote origin
+$ git remote rm origin
+
+# kalau ada pull sama push bersamaan, dan kita sudah kadung commit, kita bisa reset posisi kita ke branch (Sourcetree)
+
+???????
+# HEAD
+# git pull
+  $ git pull
+# patch
+# diff
+# cherry picking
+# gitk
 ```
 
 # vim
@@ -390,7 +523,8 @@ vi text editor(upgraded version)
 # vim script
 
 # cheat sheet
-ESC + G             # jump to EOF
+ESC + G             # jump to last line
+ESC + gg            # jump to first line
 ESC + :q            # quit
 ESC + :q!           # force quit
 ESC + :wq           # write and quit (save and quit)
@@ -400,7 +534,21 @@ ESC + :set nu       # show line number
 ESC + :set nonumbers# hide line number
 ESC + :vi +100      # go to line 100
 ESC + /yeah         # search word 'yeah'
+ESC + u             # undo
+ESC + d             # delete
+#<text>             # search strings right on the previous cursor
+?<text>             # search strings, and click N for search next
+ESC + :noh          # remove highlighting
 
+
+
+# Copy/paste
+1. ESC
+2. Put your cursor on the head of the string that you want to copy
+3. press V to start blocking the string
+4. Move the cursor using h,j,k,l
+5. press y to copy
+6. press P to paste
 ```
 
 ## googler
@@ -495,8 +643,13 @@ Goal
   * learn how to move bootloader (what is bootloader is)
   * learn how to resize filesystem
 
+Solution
+https://askubuntu.com/questions/101715/resizing-virtual-drive
+on filesystem, swap prevent you to merge your sda1 with another disk.
+Delete this file so you can merge sda1 with new disk.
+
 # Other
-The linux OS comprises several different pieces
+1. The linux OS comprises several different pieces
   * Bootloader
   * Kernel
   * Init system
@@ -504,3 +657,14 @@ The linux OS comprises several different pieces
   * Graphical server
   * Desktop environment
   * Applications
+
+2. [Chain command in linux](https://www.lostsaloon.com/technology/how-to-chain-commands-in-linux-command-line-with-examples/)
+```chain
+# chain command for entering the find result
+cd "$( dirname "$(find /path )" )"
+```
+
+# Errors
+1. ```-bash: fork: Cannot allocate memory```.
+  If this error happened, just restart your machine
+2.
